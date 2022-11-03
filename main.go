@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-var configFile = flag.String("f", "etc/demo.yaml", "the config file")
+var configFile = flag.String("f", "etc/config.yaml", "the config file")
 
 func main() {
 	flag.Parse()
