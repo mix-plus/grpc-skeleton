@@ -2,8 +2,11 @@ package main
 
 import (
 	"flag"
+	"github.com/mix-plus/grpc-skeleton/internal/server"
+
 	"github.com/go-ll/mrpc"
 	"github.com/mix-plus/core/conf"
+	"github.com/mix-plus/grpc-skeleton/api"
 	"github.com/mix-plus/grpc-skeleton/internal/config"
 	"github.com/mix-plus/grpc-skeleton/internal/svc"
 	"google.golang.org/grpc"
@@ -20,12 +23,12 @@ func main() {
 		panic(err)
 	}
 
-	_ = svc.NewServiceContext(c)
+	ctx := svc.NewServiceContext(c)
 	// newGrpcServer
-
+	srv := server.NewHelloServer(ctx)
 	s := mrpc.MustNewServer(c.RpcServerConf, func(g *grpc.Server) {
 		// grpc register
-
+		hello.RegisterHelloServer(g, srv)
 	})
 
 	defer s.Stop()
